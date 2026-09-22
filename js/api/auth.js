@@ -1,4 +1,4 @@
-const API_BASE = "https://v2.api.noroff.dev";
+import { API_BASE } from "./config.js";
 
 /**
  * Registers a new user
