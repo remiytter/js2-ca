@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Create your JSocial account">
+        <title>Register | JSocial</title>
+        <link rel="stylesheet" href="./css/style.css">
+    </head>
+    <body>
+        <header class="site-header">
+            <a class="logo" href="./login.html">JSocial</a>
+
+            <nav aria-label="Main navigation">
+                <a href="./login.html">Log in</a>
+                <a href="./register.html" aria-current="page">Register</a>
+            </nav>
+        </header>
+
+        <main class="auth-container">
+            <h1>Create an account</h1>
+            <p>Join the conversation</p>
+
+            <form id="register-form" method="post">
+                <div class="form-field">
+                    <label for="name">Username</label>
+                    <input type="text" id="name" name="name" title="Use letters A-Z, numbers and underscores" required>
+                    <small id="name-help">
+                        Use letters A-Z, numbers and underscores. No spaces.
+                    </small>
+                </div>
+
+                <div class="form-field">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" title="Use your email address" required>
+                    <small id="email-help">Use your @stud.noroff.no email address</small>
+                </div>
+
+                <div class="form-field">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" minlength="8" required>
+                    <small id="password-help">At least 8 characters.</small>
+                </div>
+
+                <p id="form-message" role="status"></p>
+
+                <button type="submit" disabled>Create account</button>
+            </form>
+
+            <p>Already registered? <a href="./login.html">Log in</a></p>
+        </main>
+    </body>
+</html>
