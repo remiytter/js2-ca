@@ -26,3 +26,30 @@ export async function registerUser(user) {
 
     return result.data;
 }
+
+/**
+ * Logs in an existing user
+ * @param {{email: string, password: string}} credentials
+ * @returns {Promise<object>} The user profile and access token.
+ * @throws {Error} if login fails.
+ */
+
+export async function loginUser(credentials) {
+    const response = await fetch(`${API_BASE}/auth/login`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        const message = result.errors?.[0]?.message || "Login failed. Please try again.";
+
+        throw new Error(message);
+    }
+
+    return result.data;
+}
