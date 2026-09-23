@@ -34,3 +34,38 @@ export async function getPosts(page = 1) {
 
     return result;
 }
+
+/**
+ * Fetches a single post with author information
+ * @param {string} id - The ID of the post
+ * @returns {Promise<object>} The requested post
+ * @throws {Error} If the request fails
+ */
+
+export async function getPost(id) {
+    const token = sessionStorage.getItem("accessToken");
+
+    if (!token) {
+        throw new Error("Please log in to view this post.");
+    }
+
+    const response = await fetch(
+        `${API_BASE}/social/posts/${encodeURIComponent(id)}?_author=true`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "X-Noroff-API-Key": API_KEY,
+            },
+        },
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            result.errors?.[0]?.message || "Could not load the post",
+        );
+    }
+
+    return result.data;
+}

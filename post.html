@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Read a post on JSocial">
+    <title>Post | JSocial</title>
+    <link rel="stylesheet" href="./css/style.css">
+  </head>
+
+  <body>
+    <header class="site-header">
+      <a class="logo" href="./index.html">JSocial</a>
+
+      <nav aria-label="Main navigation">
+        <a href="./index.html">Feed</a>
+      </nav>
+    </header>
+
+    <main class="feed-container">
+      <a href="./index.html">Back to feed</a>
+
+      <p id="post-message" role="status"></p>
+
+      <article id="post-container" class="post-card" hidden>
+        <h1 id="post-title"></h1>
+        <p id="post-author" class="post-author"></p>
+        <img id="post-image" class="post-image" hidden>
+        <p id="post-body" class="post-body"></p>
+      </article>
+    </main>
+
+    <script type="module" src="./js/pages/post.js"></script>
+  </body>
+</html>

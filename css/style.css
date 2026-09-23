@@ -132,3 +132,13 @@ small {
 .site-header nav {
   align-items: center;
 }
+
+.post-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.post-body {
+  white-space: pre-wrap;
+}
