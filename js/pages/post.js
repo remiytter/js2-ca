@@ -1,4 +1,4 @@
-import { getPost } from "../api/posts.js";
+import { getPost, deletePost } from "../api/posts.js";
 
 const message = document.querySelector("#post-message");
 const container = document.querySelector("#post-container");
@@ -6,6 +6,7 @@ const title = document.querySelector("#post-title");
 const author = document.querySelector("#post-author");
 const body = document.querySelector("#post-body");
 const image = document.querySelector("#post-image");
+const deleteButton = document.querySelector("#delete-button");
 
 async function loadPost() {
     if (!sessionStorage.getItem("accessToken")) {
@@ -29,6 +30,15 @@ async function loadPost() {
         title.textContent = post.title || "Untitled post";
         author.textContent = `By ${post.author?.name || "Unknown author"}`;
         body.textContent = post.body || "";
+        const profile = JSON.parse(sessionStorage.getItem("profile"));
+
+        if (profile && post.author && profile.name === post.author.name) {
+        deleteButton.hidden = false;
+
+        deleteButton.addEventListener("click", () => {
+            handleDelete(post.id);
+        });
+        }
 
         document.title = `${post.title || "Post"} | JSocial`;
 
@@ -64,6 +74,36 @@ function showPostImage(media) {
     } catch {
         image.hidden = true;
     }
+}
+
+async function handleDelete(id) {
+  const confirmed = window.confirm(
+    "Are you sure you want to delete this post?",
+  );
+
+  if (!confirmed) {
+    return;
+  }
+
+  deleteButton.disabled = true;
+  deleteButton.textContent = "Deleting...";
+  message.textContent = "Deleting post...";
+
+  try {
+    await deletePost(id);
+
+    window.location.replace("./index.html");
+  } catch (error) {
+    if (error instanceof TypeError) {
+      message.textContent =
+        "Could not contact the service. Check your connection and try again.";
+    } else {
+      message.textContent = error.message;
+    }
+  } finally {
+    deleteButton.disabled = false;
+    deleteButton.textContent = "Delete post";
+  }
 }
 
 loadPost();

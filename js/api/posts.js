@@ -104,3 +104,37 @@ export async function createPost(postData) {
 
     return result.data;
 }
+
+/**
+ * Deletes a post belonging to the user logged in
+ * @param {string|number} id - The ID of the post to delete
+ * @returns {Promise<void>}
+ * @throws {Error} If the request fails
+ */
+
+export async function deletePost(id) {
+    const token = sessionStorage.getItem("accessToken");
+
+    if (!token) {
+        throw new Error("Please log in to delete a post");
+    }
+
+    const response = await fetch(
+        `${API_BASE}/social/posts/${encodeURIComponent(id)}`,
+        {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "X-Noroff-API-Key": API_KEY,
+            },
+        },
+    );
+
+    if (!response.ok) {
+        const result = await response.json();
+
+        throw new Error(
+            result.errors?.[0]?.message || "Could not delete post",
+        );
+    }
+}
