@@ -7,6 +7,7 @@ const author = document.querySelector("#post-author");
 const body = document.querySelector("#post-body");
 const image = document.querySelector("#post-image");
 const deleteButton = document.querySelector("#delete-button");
+const editLink = document.querySelector("#edit-link");
 
 async function loadPost() {
     if (!sessionStorage.getItem("accessToken")) {
@@ -33,6 +34,9 @@ async function loadPost() {
         const profile = JSON.parse(sessionStorage.getItem("profile"));
 
         if (profile && post.author && profile.name === post.author.name) {
+        editLink.href = `./edit.html?id=${encodeURIComponent(post.id)}`;
+        editLink.hidden = false;
+
         deleteButton.hidden = false;
 
         deleteButton.addEventListener("click", () => {

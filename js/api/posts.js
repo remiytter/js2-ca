@@ -138,3 +138,42 @@ export async function deletePost(id) {
         );
     }
 }
+
+/**
+ * Updates a post belonging to the user logged in
+ * @param {string} id - The ID of the post
+ * @param {object} postData - The updated post content
+ * @returns {Promise<object>} The updated post
+ * @throws {Error} If the request fails
+ */
+
+export async function updatePost(id, postData) {
+    const token = sessionStorage.getItem("accessToken");
+
+    if (!token) {
+        throw new Error("Please log in to edit a post");
+    }
+
+    const response = await fetch(
+        `${API_BASE}/social/posts/${encodeURIComponent(id)}`,
+        {
+            method: "PUT",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "X-Noroff-API-Key": API_KEY,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(postData),
+        },
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            result.errors?.[0]?.message || "Could not update the post",
+        );
+    }
+
+    return result.data;
+}

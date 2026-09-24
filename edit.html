@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Edit your post on JSocial">
+    <title>Edit post | JSocial</title>
+    <link rel="stylesheet" href="./css/style.css">
+  </head>
+
+  <body>
+    <header class="site-header">
+      <a class="logo" href="./index.html">JSocial</a>
+
+      <nav aria-label="Main navigation">
+        <a href="./index.html">Feed</a>
+        <a href="./create.html">Create post</a>
+      </nav>
+    </header>
+
+    <main class="feed-container">
+      <h1>Edit post</h1>
+
+      <p id="form-message" role="status"></p>
+
+      <form id="edit-form" hidden>
+        <div class="form-field">
+          <label for="title">Title</label>
+          <input type="text" id="title" name="title" required>
+        </div>
+
+        <div class="form-field">
+          <label for="body">Text</label>
+          <textarea id="body" name="body" rows="8"></textarea>
+        </div>
+
+        <div class="form-field">
+          <label for="image-url">Image URL (optional)</label>
+          <input type="url" id="image-url" name="imageUrl">
+          <small>Clear this field to remove the existing image.</small>
+        </div>
+
+        <div class="form-field">
+          <label for="image-alt">Image description (optional)</label>
+          <input type="text" id="image-alt" name="imageAlt">
+        </div>
+
+        <button type="submit" disabled>Save changes</button>
+        <a id="cancel-link" href="./index.html">Cancel</a>
+      </form>
+    </main>
+
+    <script type="module" src="./js/pages/edit.js"></script>
+  </body>
+</html>
