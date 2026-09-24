@@ -69,3 +69,38 @@ export async function getPost(id) {
 
     return result.data;
 }
+
+/**
+ * Creates a post for the user that is logged in.
+ * @param {object} postData - The title, body and optional image
+ * @returns {Promise<object>} The newly created post
+ * @throws {Error} If the request fails
+ */
+
+export async function createPost(postData) {
+    const token = sessionStorage.getItem("accessToken");
+
+    if (!token) {
+        throw new Error("Please log in to create a post");
+    }
+
+    const response = await fetch(`${API_BASE}/social/posts`, {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "X-Noroff-API-Key": API_KEY,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(postData),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            result.errors?.[0]?.message || "Could not create the post",
+        );
+    }
+
+    return result.data;
+}

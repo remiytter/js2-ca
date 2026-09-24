@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Create a new post on JSocial">
+    <title>Create post | JSocial</title>
+    <link rel="stylesheet" href="./css/style.css">
+  </head>
+
+  <body>
+    <header class="site-header">
+      <a class="logo" href="./index.html">JSocial</a>
+
+      <nav aria-label="Main navigation">
+        <a href="./index.html">Feed</a>
+        <a href="./create.html" aria-current="page">Create post</a>
+      </nav>
+    </header>
+
+    <main class="feed-container">
+      <h1>Create a post</h1>
+
+      <form id="create-form">
+        <div class="form-field">
+          <label for="title">Title</label>
+          <input type="text" id="title" name="title" required>
+        </div>
+
+        <div class="form-field">
+          <label for="body">Text</label>
+          <textarea id="body" name="body" rows="8"></textarea>
+        </div>
+
+        <div class="form-field">
+          <label for="image-url">Image URL (optional)</label>
+          <input type="url" id="image-url" name="imageUrl">
+        </div>
+
+        <div class="form-field">
+          <label for="image-alt">Image description (optional)</label>
+          <input type="text" id="image-alt" name="imageAlt">
+        </div>
+
+        <p id="form-message" role="status"></p>
+
+        <button type="submit" disabled>Publish post</button>
+      </form>
+    </main>
+
+    <script type="module" src="./js/pages/create.js"></script>
+  </body>
+</html>
