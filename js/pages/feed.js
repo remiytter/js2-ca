@@ -1,4 +1,5 @@
 import { getPosts } from "../api/posts.js";
+import { createPostCard } from "../ui/postCard.js";
 
 const postsContainer = document.querySelector("#posts-container");
 const message = document.querySelector("#feed-message");
@@ -7,32 +8,6 @@ const logoutButton = document.querySelector("#logout-button");
 
 let nextPage = 1;
 let isLoading = false;
-
-function createPostCard(post) {
-    const article = document.createElement("article");
-    article.classList.add("post-card");
-
-    const heading = document.createElement("h2");
-    const link = document.createElement("a");
-
-    link.textContent = post.title || "Untitled post";
-    link.href = `./post.html?id=${encodeURIComponent(post.id)}`;
-
-    heading.append(link);
-
-    const author = document.createElement("p");
-    author.classList.add("post-author");
-    author.textContent = `By ${post.author?.name || "Unknown author"}`;
-
-    const excerpt = document.createElement("p");
-    const body = post.body || "";
-
-    excerpt.textContent = body.length > 160 ? `${body.slice(0, 160)}...` : body;
-
-    article.append(heading, author, excerpt);
-
-    return article;
-}
 
 async function loadPosts() {
     if (isLoading || nextPage === null) {
