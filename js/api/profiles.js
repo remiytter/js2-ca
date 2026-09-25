@@ -15,7 +15,7 @@ export async function getProfile(name) {
     }
 
     const response = await fetch(
-        `${API_BASE}/social/profiles/${encodeURIComponent(name)}`,
+        `${API_BASE}/social/profiles/${encodeURIComponent(name)}?_followers=true`,
         {
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -68,4 +68,45 @@ export async function getProfilePosts(name, page = 1) {
     }
 
     return result;
+}
+
+/**
+ * Follows or unfollows a profile
+ * @param {string} name - The username of the profile
+ * @param {boolean} shouldFollow - True to follow, false to unfollow
+ * @returns {Promise<void>}
+ * @throws {Error} If the request fails
+ */
+
+export async function setFollow(name, shouldFollow) {
+    const token = sessionStorage.getItem("accessToken");
+
+    if (!token) {
+        throw new Error("Please log in to follow users");
+    }
+
+    let action = "follow";
+
+    if(!shouldFollow) {
+        action = "unfollow";
+    }
+
+    const response = await fetch(
+        `${API_BASE}/social/profiles/${encodeURIComponent(name)}/${action}`,
+        {
+            method: "PUT",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "X-Noroff-API-Key": API_KEY,
+            },
+        },
+    );
+
+    if (!response.ok) {
+        const result = await response.json();
+
+        throw new Error(
+            result.errors?.[0]?.message || "Could not update follow status",
+        );
+    }
 }

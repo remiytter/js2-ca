@@ -1,5 +1,5 @@
 import { createPost } from "../api/posts.js";
-import { getProfile, getProfilePosts } from "../api/profiles.js";
+import { getProfile, getProfilePosts, setFollow } from "../api/profiles.js";
 import { createPostCard } from "../ui/postCard.js";
 
 const profileMessage = document.querySelector("#profile-message");
@@ -7,6 +7,7 @@ const profileContainer = document.querySelector("#profile-container");
 const nameElement = document.querySelector("#profile-name");
 const bioElement = document.querySelector("#profile-bio");
 const statsElement = document.querySelector("#profile-stats");
+const followButton = document.querySelector("#follow-button");
 
 const postsSection = document.querySelector("#profile-posts-section");
 const postsMessage = document.querySelector("#posts-message");
@@ -16,6 +17,7 @@ const loadMoreButton = document.querySelector("#load-more-button");
 let profileName;
 let nextPage = 1;
 let isLoading = false;
+let isFollowing = false;
 
 async function loadProfile() {
     if (!sessionStorage.getItem("accessToken")) {
@@ -43,6 +45,24 @@ async function loadProfile() {
         }
 
         const profile = await getProfile(profileName);
+
+        const currentUser = JSON.parse(sessionStorage.getItem("profile"));
+
+        if (currentUser && currentUser.name !== profile.name) {
+            const followers = profile.followers || [];
+
+            isFollowing = followers.some(
+                (follower) => follower.name === currentUser.name,
+            );
+
+            if (isFollowing) {
+                followButton.textContent = "Unfollow";
+            } else {
+                followButton.textContent = "Follow";
+            }
+
+            followButton.hidden = false;
+        }
 
         nameElement.textContent = profile.name;
         bioElement.textContent = profile.bio || "No bio yet";
@@ -102,6 +122,29 @@ async function loadPosts() {
     }
 }
 
+async function handleFollow() {
+    if (followButton.disabled) {
+        return;
+    }
+
+    followButton.disabled = true;
+    profileMessage.textContent = "Updating follow status...";
+
+    try {
+        await setFollow(profileName, !isFollowing);
+
+        window.location.reload();
+    } catch (error) {
+        profileMessage.textContent =
+            error instanceof TypeError
+                ? "Could not contact the service. Check your connection and try again"
+                : error.message;
+
+        followButton.disabled = false;
+    }
+}
+
+followButton.addEventListener("click", handleFollow);
 loadMoreButton.addEventListener("click", loadPosts);
 
 loadProfile();
