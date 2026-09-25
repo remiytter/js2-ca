@@ -177,3 +177,39 @@ export async function updatePost(id, postData) {
 
     return result.data;
 }
+
+/**
+ * Searches for posts by title or body
+ * @param {string} query - The search text
+ * @param {number} page - The page number to fetch
+ * @returns {Promise<object>} Posts and pagination information
+ * @throws {Error} If the request fails
+ */
+
+export async function searchPosts(query, page = 1) {
+    const token = sessionStorage.getItem("accessToken");
+
+    if (!token) {
+        throw new Error("Please log in to search posts");
+    }
+
+    const response = await fetch(
+        `${API_BASE}/social/posts/search?q=${encodeURIComponent(query)}&_author=true&sort=created&sortOrder=desc&limit)20&page=${page}`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "X-Noroff-API-Key": API_KEY,
+            },
+        },
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            result.errors?.[0]?.message || "Could not search posts",
+        );
+    }
+
+    return result;
+}

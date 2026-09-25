@@ -23,6 +23,16 @@
     <main class="feed-container">
       <h1>Latest posts</h1>
 
+      <form id="search-form" role="search">
+        <div class="form-field">
+          <label for="search-input">Search posts</label>
+          <input type="search" id="search-input" name="query" placeholder="Search by title or content">
+        </div>
+
+        <button id="search-button" type="submit">Search</button>
+        <p>Leave the field empty and seatch to show all posts.</p>
+      </form>
+
       <p id="feed-message" role="status"></p>
 
       <div id="posts-container"></div>
