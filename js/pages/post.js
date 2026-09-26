@@ -29,7 +29,21 @@ async function loadPost() {
         const post = await getPost(id);
 
         title.textContent = post.title || "Untitled post";
-        author.textContent = `By ${post.author?.name || "Unknown author"}`;
+        
+        author.replaceChildren();
+
+        if (post.author && post.author.name) {
+            const authorLink = document.createElement("a");
+
+            authorLink.textContent = post.author.name;
+            authorLink.href =
+                `./profile.html?name=${encodeURIComponent(post.author.name)}`;
+
+            author.append("By ", authorLink);
+        } else {
+            author.textContent = "Unknown author";
+        }
+
         body.textContent = post.body || "";
         const profile = JSON.parse(sessionStorage.getItem("profile"));
 
