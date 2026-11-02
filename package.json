@@ -1,0 +1,28 @@
+{
+  "name": "js2-ca",
+  "version": "1.0.0",
+  "description": "JSocial is a social media frontend built for the Javascript 2 CA at Noroff. The application use the Noroff API and vanilla JS with ES6 modules.",
+  "main": "index.js",
+  "scripts": {
+  "dev": "sass --watch --load-path=node_modules scss/main.scss css/main.css",
+  "build": "sass --load-path=node_modules --style=compressed --no-source-map scss/main.scss css/main.css"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/remiytter/js2-ca.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/remiytter/js2-ca/issues"
+  },
+  "homepage": "https://github.com/remiytter/js2-ca#readme",
+  "dependencies": {
+    "bootstrap": "^5.3.8"
+  },
+  "devDependencies": {
+    "sass": "^1.107.1"
+  }
+}
