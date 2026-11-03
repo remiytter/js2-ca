@@ -1,9 +1,22 @@
 export function createPostCard(post) {
   const article = document.createElement("article");
-  article.classList.add("post-card");
+  article.classList.add(
+  "post-card",
+  "card",
+  "bg-white",
+  "border-0",
+  "shadow-sm",
+  "text-break"
+ );
 
-  const heading = document.createElement("h2");
-  const link = document.createElement("a");
+const cardBody = document.createElement("div");
+cardBody.classList.add("card-body", "p-4");
+
+const heading = document.createElement("h2");
+heading.classList.add("card-title", "h4");
+
+const link = document.createElement("a");
+link.classList.add("text-decoration-none");
 
   link.textContent = post.title || "Untitled post";
   link.href = `./post.html?id=${encodeURIComponent(post.id)}`;
@@ -11,7 +24,7 @@ export function createPostCard(post) {
   heading.append(link);
 
   const author = document.createElement("p");
-  author.classList.add("post-author");
+  author.classList.add("post-author", "small", "text-body-secondary");
 
   if (post.author && post.author.name) {
     const authorLink = document.createElement("a");
@@ -26,6 +39,7 @@ export function createPostCard(post) {
   }
 
   const excerpt = document.createElement("p");
+  excerpt.classList.add("card-text", "mb-0");
   const body = post.body || "";
 
   if (body.length > 160) {
@@ -34,7 +48,8 @@ export function createPostCard(post) {
     excerpt.textContent = body;
   }
 
-  article.append(heading, author, excerpt);
+  cardBody.append(heading, author, excerpt);
+article.append(cardBody);
 
   return article;
 }

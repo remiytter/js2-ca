@@ -5,40 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="View a profile and posts on JSocial">
     <title>Profile | JSocial</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/main.css">
   </head>
 
   <body>
-    <header class="site-header">
-      <a class="logo" href="./index.html">JSocial</a>
+    <header class="bg-white border-bottom">
+      <nav
+        class="container d-flex flex-wrap justify-content-between align-items-center gap-3 py-3"
+        aria-label="Main navigation"
+      >
+        <a class="fs-4 fw-bold text-decoration-none" href="./index.html">
+          JSocial
+        </a>
 
-      <nav aria-label="Main navigation">
-        <a href="./index.html">Feed</a>
-        <a href="./create.html">Create post</a>
-        <a href="./profile.html">My profile</a>
+        <div class="d-flex flex-wrap align-items-center gap-3">
+          <a href="./index.html">Feed</a>
+          <a href="./create.html">Create post</a>
+          <a href="./profile.html">My profile</a>
+        </div>
       </nav>
     </header>
 
-    <main class="feed-container">
-      <p id="profile-message" role="status"></p>
+    <main class="container py-4 py-md-5">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+          <p
+            id="profile-message"
+            class="text-body-secondary"
+            role="status"
+          ></p>
 
-      <section id="profile-container" hidden>
-        <h1 id="profile-name"></h1>
-        <p id="profile-bio"></p>
-        <p id="profile-stats"></p>
-        <button id="follow-button" type="button" hidden>Follow</button>
-      </section>
+          <section
+            id="profile-container"
+            class="card bg-white border-0 shadow-sm mb-4"
+            aria-labelledby="profile-name"
+            hidden
+          >
+            <div class="card-body p-4">
+              <h1 id="profile-name" class="h2 text-break"></h1>
 
-      <section id="profile-posts-section" hidden>
-        <h2>Posts</h2>
+              <p id="profile-bio" class="text-break"></p>
 
-        <p id="posts-message" role="status"></p>
-        <div id="posts-container"></div>
+              <p
+                id="profile-stats"
+                class="small text-body-secondary"
+              ></p>
 
-        <button id="load-more-button" type="button" hidden>
-          Load more
-        </button>
-      </section>
+              <button
+                id="follow-button"
+                class="btn btn-primary"
+                type="button"
+                hidden
+              >
+                Follow
+              </button>
+            </div>
+          </section>
+
+          <section
+            id="profile-posts-section"
+            aria-labelledby="profile-posts-heading"
+            hidden
+          >
+            <h2 id="profile-posts-heading" class="h3 mb-3">Posts</h2>
+
+            <p
+              id="posts-message"
+              class="text-body-secondary"
+              role="status"
+            ></p>
+
+            <div id="posts-container" class="d-grid gap-3 mb-4"></div>
+
+            <button
+              id="load-more-button"
+              class="btn btn-outline-primary"
+              type="button"
+              hidden
+            >
+              Load more
+            </button>
+          </section>
+        </div>
+      </div>
     </main>
 
     <script type="module" src="./js/pages/profile.js"></script>
