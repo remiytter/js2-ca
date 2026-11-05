@@ -194,7 +194,7 @@ export async function searchPosts(query, page = 1) {
     }
 
     const response = await fetch(
-        `${API_BASE}/social/posts/search?q=${encodeURIComponent(query)}&_author=true&sort=created&sortOrder=desc&limit)20&page=${page}`,
+        `${API_BASE}/social/posts/search?q=${encodeURIComponent(query)}&_author=true&sort=created&sortOrder=desc&limit=20&page=${page}`,
         {
             headers: {
                 Authorization: `Bearer ${token}`,

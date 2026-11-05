@@ -5,41 +5,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="See the latest posts on JSocial">
     <title>Feed | JSocial</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/main.css">
   </head>
 
   <body>
-    <header class="site-header">
-      <a class="logo" href="./index.html">JSocial</a>
+    <header class="bg-white border-bottom">
+      <nav
+        class="container d-flex flex-wrap justify-content-between align-items-center gap-3 py-3"
+        aria-label="Main navigation">
 
-      <nav aria-label="Main navigation">
-        <a href="./index.html" aria-current="page">Feed</a>
-        <a href="./create.html">Create post</a>
-        <a href="./profile.html">My profile</a>
-        <button id="logout-button" type="button">Log out</button>
+        <a class="fs-4 fw-bold text-decoration-none" href="./index.html">
+          JSocial
+        </a>
+
+        <div class="d-flex flex-wrap align-items-center gap-3">
+          <a class="fw-bold" href="./index.html" aria-current="page">
+            Feed
+          </a>
+          <a href="./create.html">Create post</a>
+          <a href="./profile.html">My profile</a>
+          <button
+            id="logout-button"
+            class="btn btn-outline-primary btn-sm"
+            type="button">
+            Log out
+          </button>
+        </div>
       </nav>
     </header>
 
-    <main class="feed-container">
-      <h1>Latest posts</h1>
+    <main class="container py-4 py-md-5">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+          <h1 class="mb-4">Latest posts</h1>
 
-      <form id="search-form" role="search">
-        <div class="form-field">
-          <label for="search-input">Search posts</label>
-          <input type="search" id="search-input" name="query" placeholder="Search by title or content">
+          <form
+            id="search-form"
+            class="card bg-white border-0 shadow-sm p-4 mb-4"
+            role="search">
+            <label class="form-label" for="search-input">
+              Search posts
+            </label>
+
+            <div class="d-flex flex-column flex-sm-row gap-2">
+              <input
+                class="form-control"
+                type="search"
+                id="search-input"
+                name="query"
+                placeholder="Search by title or content"
+                aria-describedby="search-help">
+
+              <button
+                id="search-button"
+                class="btn btn-primary"
+                type="submit">
+                Search
+              </button>
+            </div>
+
+            <p id="search-help" class="form-text mb-0">
+              Leave the field empty and search to show all posts.
+            </p>
+          </form>
+
+          <p
+            id="feed-message"
+            class="text-body-secondary"
+            role="status">
+          </p>
+
+          <div id="posts-container" class="d-grid gap-3 mb-4"></div>
+
+          <button
+            id="load-more-button"
+            class="btn btn-outline-primary"
+            type="button"
+            hidden>
+            Load more
+          </button>
         </div>
-
-        <button id="search-button" type="submit">Search</button>
-        <p>Leave the field empty and seatch to show all posts.</p>
-      </form>
-
-      <p id="feed-message" role="status"></p>
-
-      <div id="posts-container"></div>
-
-      <button id="load-more-button" type="button" hidden>
-        Load more
-      </button>
+      </div>
     </main>
 
     <script type="module" src="./js/pages/feed.js"></script>
